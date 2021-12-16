@@ -1,7 +1,6 @@
+use bytes::Bytes;
+use std::io::Write;
+
 fn main() {
-    let mut test: u8 = 0;
-    while test <= 255 {
-        print!("test is {}", test);
-        test += 1;
-    }
+    std::io::stdout().write(true).unwrap();
 }
