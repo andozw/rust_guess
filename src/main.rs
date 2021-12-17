@@ -1,6 +1,9 @@
-use bytes::Bytes;
-use std::io::Write;
-
 fn main() {
-    std::io::stdout().write(true).unwrap();
+    let number = 3;
+
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    }
 }
