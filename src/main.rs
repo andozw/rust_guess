@@ -1,6 +1,7 @@
 fn main() {
-    for number in (1..4).rev() {
-        println!("{}!", number);
+    {
+        let s = "hello";
     }
-    println!("LIFTOFF!!!");
+
+    println!("s is invalid and out of scope: {}", s);
 }
