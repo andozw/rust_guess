@@ -1,11 +1,18 @@
 fn main() {
-    let s1 = String::from("hello");
-
-    let len = calculate_length(&s1);
-
-    println!("The length of '{}' is {}.", s1, len);
+    println!("{}", first_word(&String::from("Hello sir")));
+    println!("{}", first_word(&String::from("")));
+    println!("{}", first_word(&String::from("mutable")));
+    println!("{}", first_word(&String::from(" bread")));
 }
 
-fn calculate_length(s: &String) -> usize {
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
     s.len()
 }
