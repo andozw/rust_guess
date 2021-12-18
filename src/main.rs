@@ -1,7 +1,7 @@
 fn main() {
-    {
-        let s = "hello";
-    }
+    let mut s = String::from("hello");
 
-    println!("s is invalid and out of scope: {}", s);
+    s.push_str(", world");
+
+    println!("{}", s);
 }
