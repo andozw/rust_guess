@@ -9,5 +9,7 @@ fn main() {
     let none = plus_one(None);
     
     let six = plus_one(Some(5));
-    println!("Six: {}", six.unwrap());
+    if let Some(i) = six {
+        println!("Six: {}", i);
+    }
 }
