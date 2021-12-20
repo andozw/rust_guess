@@ -1,14 +1,11 @@
-enum IpAddrKind {
-    V4(String),
-    V6(String),
+enum Option<T> {
+    None,
+    Some(T),
 }
 
-fn route(ip_kind: IpAddrKind) {}
-
 fn main() {
-    let home = IpAddrKind::V4(String::from("127.0.0.1"));
-    let loopback = IpAddrKind::V6(String::from("::1"));
+    let some_number = Option::Some(5);
+    let some_string = Option::Some("a string");
 
-    route(home);
-    route(loopback);
+    let absent_number: Option<i32> = Option::None;
 }
