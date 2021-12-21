@@ -1,15 +1,26 @@
-fn plus_one(x: Option<i32>) -> Option<i32> {
-    match x {
-        None => None,
-        Some(i) => Some(i + 1),
+mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+
+        pub fn get_fruit(&self) -> &String {
+            &self.seasonal_fruit
+        }
     }
 }
 
-fn main() {
-    let none = plus_one(None);
-    
-    let six = plus_one(Some(5));
-    if let Some(i) = six {
-        println!("Six: {}", i);
-    }
+
+fn main() { 
+    let breakfast = back_of_house::Breakfast::summer("rye");
+
+    println!("Toast is: {}, fruit is: {}", breakfast.toast, breakfast.get_fruit());
 }
