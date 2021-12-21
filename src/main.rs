@@ -4,6 +4,7 @@ mod front_of_house {
     }
 }
 
+// re-export with `pub use` so callers also have access.
 use crate::front_of_house::hosting;
 
 // can also use relative paths with `self`
