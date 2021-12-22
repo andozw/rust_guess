@@ -1,20 +1,44 @@
 fn main() {
-    let mut s = String::new();
-    let data = "initial contents";
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("world!");
 
-    let s = data.to_string();
+    // Does not works since add signature is: add(self, s: &str) -> String
+    // let s3 = s1 + s2;
+    let s3 = s1 + &s2;
 
-    let s = "initial contents".to_string();
+    println!("s3: {}", s3);
 
-    let s = String::from("initial contents");
+    // Can no longer use s1 since it was moved by call to `+`
+    // println!("s1 cannot be accessed: {}", s1);
+    
+    
+    // Use format for easier concatenation
+    let s1 = String::from("tic");
+    let s2 = String::from("tac");
+    let s3 = String::from("toe");
 
-    let mut s = String::from("foo");
-    s.push_str("bar");
+    let s = format!("{}-{}-{}", s1, s2, s3);
+    println!("s: {}", s);
 
-    let mut s1 = String::from("foo");
-    let s2 = "bar";
-    s1.push_str(s2);
+    // Rust strings don't support indexing
+    // Wont work:
+    // let first = s[0];
+    
+    // Why? String is a wrapper over a Vec<u8>
+    //
+    // Indexing into a string is often a bad idea since it is not clear what the type of 
+    // indexing operation should be: byte, character, grapheme cluster, string slice? 
+    // So you must be explicit. 
+    // To ask for string slice:
+    let first = &s[0..1];
+    println!("first: {}", first);
 
-    s1.push('X');
-    println!("s1: {}, s2:{}", s1, s2);
+    // Better way to iterate over Strings
+   for c in "नमस्ते".chars() {
+       println!("{}", c);
+   }
+
+   for b in "नमस्ते".bytes() {
+       println!("{}", b);
+   }
 }
