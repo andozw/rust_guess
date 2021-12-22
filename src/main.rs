@@ -1,19 +1,44 @@
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-    }
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
 }
 
-// re-export with `pub use` so callers also have access.
-use crate::front_of_house::hosting;
-
-// can also use relative paths with `self`
-// and bring in conflicting names by aliasing with `as`
-use self::front_of_house::hosting as ghosting;
-
 fn main() {
-    hosting::add_to_waitlist();
-    hosting::add_to_waitlist();
-    hosting::add_to_waitlist();
-    ghosting::add_to_waitlist();
+    let v1: Vec<i32> = Vec::new();
+    let v2 = vec![1, 2, 3];
+
+    let third: &i32 = &v2[2];
+    println!("The third element is: {}", third);
+
+    match v2.get(2) {
+        Some(third) => println!("The matched element is: {}", third),
+        None => println!("No third element"),
+    }
+
+    let mut v3 = Vec::new();
+
+    v3.push(9);
+    v3.push(8);
+    v3.push(7);
+    v3.push(6);
+
+    for i in &v3 {
+        println!("[{}]", i);
+    }
+    
+    for i in &mut v3 {
+        *i *= 11;
+        println!("[{}]", i);
+    }
+
+    let row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
+
+    // get returns None when element does not exist.
+    let will_not_panic = v3.get(100);
+    let will_panic = &v3[100];
 }
