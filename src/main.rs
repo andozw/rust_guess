@@ -1,22 +1,32 @@
-pub struct Guess {
-    value: i32
+fn largest_i32(list: &[i32]) -> i32 {
+    let mut max = list[0];
+
+    for &item in list {
+        if item > max {
+            max = item
+        }
+    }
+
+    max
 }
 
-impl Guess {
-    pub fn new(value: i32) -> Guess {
-        if value < 1 || value > 100 {
-            panic!("guess must be between 1 and 100, got {}", value);
+fn largest<T: std::cmp::PartialOrd + Copy>(list: &[T]) -> T {
+    let mut max = list[0];
+
+    for &item in list {
+        if item > max {
+            max = item
         }
-
-        Guess { value }
     }
 
-    pub fn value(&self) -> i32 {
-        self.value
-    }
+    max
 }
 
 fn main() {
-    let g = Guess::new(77);
-    println!("Guess is {}", g.value());
+    let numbers = vec![7, 21, 9];
+    println!("Largest number: {}", largest_i32(&numbers));
+    println!("Largest number: {}", largest(&numbers));
+
+    let chars = vec!['a', 'd', 'Z', 'q'];
+    println!("Largest char: {}", largest(&chars));
 }
