@@ -1,32 +1,30 @@
-fn largest_i32(list: &[i32]) -> i32 {
-    let mut max = list[0];
-
-    for &item in list {
-        if item > max {
-            max = item
-        }
-    }
-
-    max
+struct Point<T, U> {
+    x: T, 
+    y: U,
 }
 
-fn largest<T: std::cmp::PartialOrd + Copy>(list: &[T]) -> T {
-    let mut max = list[0];
-
-    for &item in list {
-        if item > max {
-            max = item
+impl<T, U> Point<T, U> {
+    fn mixup<V, W>(self, other: Point<V, W>) -> Point<T, W> {
+        Point {
+            x: self.x,
+            y: other.y
         }
     }
 
-    max
+    fn x(&self) -> &T {
+        &self.x
+    }
+    fn y(&self) -> &U {
+        &self.y
+    }
 }
 
 fn main() {
-    let numbers = vec![7, 21, 9];
-    println!("Largest number: {}", largest_i32(&numbers));
-    println!("Largest number: {}", largest(&numbers));
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Zane", y: 'x' };
+    let p3 = p1.mixup(p2);
+    println!("p3: [{}, {}]", p3.x(), p3.y());
 
-    let chars = vec!['a', 'd', 'Z', 'q'];
-    println!("Largest char: {}", largest(&chars));
+    // can just access directly
+    println!("p3: [{}, {}]", p3.x, p3.y);
 }
