@@ -1,44 +1,46 @@
+use std::collections::HashMap;
+
+fn print_map(map: &HashMap<String, i32>) {
+    println!("----------");
+    for (key, value) in map {
+        println!("{}: {}", key, value);
+    }
+    println!("----------");
+}
+
 fn main() {
-    let s1 = String::from("Hello, ");
-    let s2 = String::from("world!");
+    let mut scores = HashMap::new();
 
-    // Does not works since add signature is: add(self, s: &str) -> String
-    // let s3 = s1 + s2;
-    let s3 = s1 + &s2;
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Red"), 25);
 
-    println!("s3: {}", s3);
+    let teams = vec![String::from("Blue"), String::from("Red")];
+    let scores = vec![10, 25];
 
-    // Can no longer use s1 since it was moved by call to `+`
-    // println!("s1 cannot be accessed: {}", s1);
+    let mut scores: HashMap<_, _> = teams.into_iter().zip(scores.into_iter()).collect();
+
+    scores.insert(String::from("Green"), 33);
+
+    println!("Red Score: {}", scores.get(&String::from("Red")).unwrap());
+
+    print_map(&scores);
+
+    // Replace entry
+    scores.insert(String::from("Red"), 62);
     
-    
-    // Use format for easier concatenation
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
+    // Only add entry if it doesn't already exist.
+    println!("foo: {}", scores.entry(String::from("Green")).or_insert(77));
+    println!("bar: {}", scores.entry(String::from("Purple")).or_insert(77));
 
-    let s = format!("{}-{}-{}", s1, s2, s3);
-    println!("s: {}", s);
+    print_map(&scores);
 
-    // Rust strings don't support indexing
-    // Wont work:
-    // let first = s[0];
-    
-    // Why? String is a wrapper over a Vec<u8>
-    //
-    // Indexing into a string is often a bad idea since it is not clear what the type of 
-    // indexing operation should be: byte, character, grapheme cluster, string slice? 
-    // So you must be explicit. 
-    // To ask for string slice:
-    let first = &s[0..1];
-    println!("first: {}", first);
+    // increment value in map.
+    let text = "hello world wonderful hello world yahtzee";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
 
-    // Better way to iterate over Strings
-   for c in "नमस्ते".chars() {
-       println!("{}", c);
-   }
-
-   for b in "नमस्ते".bytes() {
-       println!("{}", b);
-   }
+    println!("{:?}", map);
 }
