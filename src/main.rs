@@ -1,12 +1,19 @@
-// When returning a reference from a function, the lifetime parameter for the 
-// return type needs to match the lifetime parameter for one of the parameters.
-// If the reference returned does not refer to one of the parameters, it must refer
-// to a value created within the function, which would be a dangling reference.
-fn longest<'a>(a: &'a str, b: &'a str) -> &'a str {
-    if a.len() >= b.len() {
-        a
+use std::fmt::Display;
+
+fn longest_with_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    announcement: T
+) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", announcement);
+
+    if x.len() > y.len() {
+        x
     } else {
-        b
+        y
     }
 }
 
@@ -14,7 +21,9 @@ fn main() {
     let string1 = String::from("longest");
     let string2 = String::from("short");
 
-    let result = longest(string1.as_str(), string2.as_str());
+    let result = longest_with_announcement(string1.as_str(), 
+        string2.as_str(),
+        "ANNOUNCEMENT");
 
     println!("Longest string is {}", result);
 }
