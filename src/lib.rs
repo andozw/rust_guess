@@ -80,5 +80,14 @@ mod tests {
     fn should_panic_at_the_disco() {
         panic_at_the_disco();
     }
+
+    #[test]
+    fn use_results() -> Result<(), String> {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four. check on winston."))
+        }
+    }
 }
 
