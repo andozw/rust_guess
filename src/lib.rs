@@ -18,6 +18,10 @@ pub fn greeting(name: &str) -> String {
     String::from("Hello!")
 }
 
+pub fn panic_at_the_disco() {
+    panic!("the disco");
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -69,6 +73,12 @@ mod tests {
             "Greeting did not contain name. Result was: {}",
             result
         );
+    }
+
+    #[test]
+    #[should_panic]
+    fn should_panic_at_the_disco() {
+        panic_at_the_disco();
     }
 }
 
