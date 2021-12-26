@@ -76,7 +76,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "the disco")]
     fn should_panic_at_the_disco() {
         panic_at_the_disco();
     }
