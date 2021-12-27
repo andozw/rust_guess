@@ -10,12 +10,14 @@ impl Rectangle {
     }
 }
 
-pub fn add_two(a: i32) -> i32 {
-    a + 2
+pub mod adder {
+    pub fn add_two(a: i32) -> i32 {
+        a + 2
+    }
 }
 
 pub fn greeting(name: &str) -> String {
-    String::from("Hello!")
+    format!("Hello {}!", name)
 }
 
 pub fn panic_at_the_disco() {
@@ -62,7 +64,7 @@ mod tests {
 
     #[test]
     fn it_adds_two() {
-       assert_eq!(4, add_two(2));
+       assert_eq!(4, adder::add_two(2));
     }
 
     #[test]
