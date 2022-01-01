@@ -1,27 +1,23 @@
-struct MyPointer {
-    data: String,
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
 }
 
-impl Drop for MyPointer {
-    fn drop(&mut self) {
-        println!("Droppping MyPoint: {}", self.data)
-    }
-}
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
 
 fn main() {
-    let a = MyPointer {
-        data: String::from("first"),
-    };
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    println!("count after creating a: {}", Rc::strong_count(&a));
 
-    let b = MyPointer {
-        data: String::from("second"),
-    };
+    // Rc::clone for shallow copies and reference count updates.
+    let b = Cons(3, Rc::clone(&a));
+    println!("count after creating b: {}", Rc::strong_count(&a));
 
     {
-        let c = MyPointer {
-            data: String::from("third"),
-        };
+        let c = Cons(4, Rc::clone(&a));
+        println!("count after creating c: {}", Rc::strong_count(&a));
     }
 
-    println!("Finished!");
+    println!("count after c dies: {}", Rc::strong_count(&a));
 }
